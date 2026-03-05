@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Passify - High-Performance Password Tool
 
 Passify is a fast, edge-ready, neon-cyber web application offering a Password Generator, Strength Analyzer, and Secure Notes storage.
@@ -40,3 +41,7 @@ The project is structured elegantly for Next.js 14 App Router:
 1. Install dependencies with `npm install`
 2. Run development server with `npm run dev`
 3. View on `http://localhost:3000`
+=======
+# password-Generator-Tool
+A fast, secure, and customizable password generator built to create strong passwords instantly. This tool helps users generate highly secure passwords with multiple customization options to protect their online accounts.  The project focuses on speed, security, and user experience, making it suitable for both personal and professional use.
+>>>>>>> 01e448045ebadbf21b043ea56677368f228754ec
