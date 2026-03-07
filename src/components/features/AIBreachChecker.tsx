@@ -5,6 +5,7 @@ import { AlertTriangle, CheckCircle2, ChevronRight, Loader2, ShieldAlert, KeyRou
 
 type BreachResult = {
     breachProbability: "Safe" | "Low" | "Medium" | "High" | "Critical";
+    riskScore: number; // 0-100
     breachCount?: number; // For passwords and emails
     emailBreaches?: { name: string; date: string }[];
     targetInput: string;
@@ -108,6 +109,7 @@ Your goal is to assess its exposure risk and provide recommendations.
 DO NOT use Markdown blocks. Return ONLY valid JSON in this exact structure:
 {
   "breachProbability": "Safe" | "Low" | "Medium" | "High" | "Critical",
+  "riskScore": 0, // Integer 0-100 where 100 means extreme critical risk and 0 means totally safe
   "summary": "A humanized, conversational 2-3 sentence explanation acting as an expert explaining the risk.",
   "knownIncidents": ["Detailed explanation of a genuine historical incident where a similar vulnerability was exploited"],
   "riskFactors": ["risk 1", "risk 2"],
@@ -121,6 +123,7 @@ Your goal is to assess its exposure risk based on this GENUINE data and provide 
 DO NOT use Markdown blocks. Return ONLY valid JSON in this exact structure:
 {
   "breachProbability": "Safe" | "Low" | "Medium" | "High" | "Critical",
+  "riskScore": 0, // Integer 0-100 where 100 means extreme critical risk and 0 means totally safe
   "summary": "A humanized, conversational 2-3 sentence explanation acting as an expert explaining the risk of these specific breaches.",
   "riskFactors": ["risk 1", "risk 2"],
   "recommendations": ["actionable suggestion 1", "actionable suggestion 2"]
@@ -322,8 +325,8 @@ Provide your JSON threat assessment for this exact email.`;
 
             const parsed = JSON.parse(cleanJson);
 
-            if (!parsed.breachProbability || !Array.isArray(parsed.riskFactors) || !parsed.summary) {
-                throw new Error("Invalid AI Response format. Missing required summary or risk factors.");
+            if (!parsed.breachProbability || typeof parsed.riskScore !== "number" || !Array.isArray(parsed.riskFactors) || !parsed.summary) {
+                throw new Error("Invalid AI Response format. Missing required summary, risk score, or risk factors.");
             }
 
             setResult({
@@ -369,6 +372,13 @@ Provide your JSON threat assessment for this exact email.`;
             case "Critical": return "text-destructive border-destructive/30 bg-destructive/10";
             default: return "border-border";
         }
+    };
+
+    const getScoreColorFill = (score: number) => {
+        if (score < 20) return "bg-green-500";
+        if (score < 40) return "bg-yellow-500";
+        if (score < 70) return "bg-orange-500";
+        return "bg-destructive";
     };
 
     return (
@@ -543,11 +553,30 @@ Provide your JSON threat assessment for this exact email.`;
                                 {result.targetType === "Password" && !showPassword ? "••••••••••••" : result.targetInput}
                             </div>
                             <div className={`px-4 py-1.5 rounded-full text-sm font-bold border ${getProbabilityColor(result.breachProbability)} shadow-sm whitespace-nowrap text-center`}>
-                                Exposure Risk: {result.breachProbability}
+                                Exposure Level: {result.breachProbability}
                             </div>
                         </div>
 
                         <div className="p-4 md:p-8 space-y-8">
+                            {/* Numerical Risk Score Bar */}
+                            <div className="bg-secondary/40 border border-border/50 rounded-2xl p-5">
+                                <div className="flex justify-between items-end mb-3">
+                                    <div>
+                                        <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">Total Risk Score</h4>
+                                        <div className="text-3xl font-black">{result.riskScore}<span className="text-muted-foreground text-lg font-bold">/100</span></div>
+                                    </div>
+                                    <div className="text-right">
+                                        <span className="text-xs font-semibold text-muted-foreground">0 = Safe | 100 = Critical</span>
+                                    </div>
+                                </div>
+                                <div className="h-4 w-full bg-secondary rounded-full overflow-hidden border border-border/50 shadow-inner">
+                                    <div
+                                        className={`h-full transition-all duration-1000 ease-out ${getScoreColorFill(result.riskScore)}`}
+                                        style={{ width: `${result.riskScore}%` }}
+                                    />
+                                </div>
+                            </div>
+
                             {/* Humanized AI Summary */}
                             {result.summary && (
                                 <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5 flex gap-4 items-start">

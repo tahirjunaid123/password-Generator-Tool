@@ -120,16 +120,16 @@ export default function Home() {
           <p className="text-muted-foreground text-lg">Join thousands of users generating secure passwords every day.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {/* Review 1 */}
-          <div className="bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="United States">
               <Image src="https://flagcdn.com/w40/us.png" alt="USA Flag" width={24} height={18} className="block object-contain" />
             </div>
             <div className="flex text-yellow-500 mb-4 text-lg">
               ★★★★★
             </div>
-            <p className="text-muted-foreground mb-6 italic">&quot;The Pattern Checker is a game changer. I realized all my old passwords used keyboard walks. Passify helped me secure my entire digital life.&quot;</p>
+            <p className="text-muted-foreground mb-6 italic">&quot;The AI Analyzer is a literal life saver. It didn&apos;t just tell me my password was weak, it explained why and gave me bulk alternatives that I actually use now.&quot;</p>
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
                 <Image src="/avatars/sarah.jpg" alt="Sarah J." fill className="object-cover" />
@@ -145,7 +145,7 @@ export default function Home() {
           </div>
 
           {/* Review 2 */}
-          <div className="bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="Germany">
               <Image src="https://flagcdn.com/w40/de.png" alt="Germany Flag" width={24} height={18} className="block object-contain" />
             </div>
@@ -168,7 +168,7 @@ export default function Home() {
           </div>
 
           {/* Review 3 */}
-          <div className="bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="Canada">
               <Image src="https://flagcdn.com/w40/ca.png" alt="Canada Flag" width={24} height={18} className="block object-contain" />
             </div>
@@ -191,7 +191,7 @@ export default function Home() {
           </div>
 
           {/* Review 4 */}
-          <div className="bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="United Kingdom">
               <Image src="https://flagcdn.com/w40/gb.png" alt="UK Flag" width={24} height={18} className="block object-contain" />
             </div>
@@ -209,6 +209,29 @@ export default function Home() {
                   <span className="absolute left-0 opacity-0 transition-all duration-300 translate-y-2 group-hover/name:opacity-100 group-hover/name:translate-y-0 text-destructive whitespace-nowrap">James Worthington</span>
                 </div>
                 <div className="text-xs text-muted-foreground">IT Consultant • UK</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Review 5 - Warda Amjad */}
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+            <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="Pakistan">
+              <Image src="https://flagcdn.com/w40/pk.png" alt="Pakistan Flag" width={24} height={18} className="block object-contain" />
+            </div>
+            <div className="flex text-yellow-500 mb-4 text-lg">
+              ★★★★★
+            </div>
+            <p className="text-muted-foreground mb-6 italic">&quot;The AI Breach Checker is incredibly trustworthy! It gives exact historical breach records and real risk scores. I feel so much safer knowing my accounts are protected by such an advanced tool.&quot;</p>
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-emerald-500/20">
+                <Image src="/avatars/warda.jpg" alt="Warda A." fill className="object-cover" />
+              </div>
+              <div>
+                <div className="font-semibold text-foreground cursor-default relative h-5 flex items-center group/name overflow-visible" title="Warda Amjad">
+                  <span className="transition-all duration-300 group-hover/name:opacity-0 group-hover/name:-translate-y-2">Warda A.</span>
+                  <span className="absolute left-0 opacity-0 transition-all duration-300 translate-y-2 group-hover/name:opacity-100 group-hover/name:translate-y-0 text-emerald-500 whitespace-nowrap">Warda Amjad</span>
+                </div>
+                <div className="text-xs text-muted-foreground">Cybersecurity Enthusiast • Pakistan</div>
               </div>
             </div>
           </div>
