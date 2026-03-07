@@ -2,8 +2,7 @@
 
 import { PasswordGenerator } from "@/components/features/PasswordGenerator";
 import { StrengthAnalyzer } from "@/components/features/StrengthAnalyzer";
-import { SecureNotes } from "@/components/features/SecureNotes";
-import { Shield, Key, Fingerprint, Database, BrainCircuit } from "lucide-react";
+import { Shield, Key, Database, BrainCircuit, Lock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -29,34 +28,41 @@ export default function Home() {
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium">
             Create strong passwords, analyze their strength, detect breaches, generate passphrases, and encrypt your data.
           </p>
-          <div className="pt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
+          <div className="pt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 justify-center items-stretch w-full max-w-7xl mx-auto">
             <button
               onClick={scrollToGenerator}
-              className="text-lg font-bold bg-primary text-primary-foreground px-8 py-4 rounded-xl hover:bg-primary/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,0,255,0.5)] w-full sm:w-auto flex items-center justify-center gap-2"
+              className="text-sm font-bold bg-primary text-primary-foreground py-3 px-3 rounded-xl hover:bg-primary/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,0,255,0.5)] w-full flex items-center justify-center gap-2 h-full min-h-[56px]"
             >
-              <Shield className="w-5 h-5" />
-              Generate Password
+              <Shield className="w-5 h-5 shrink-0" />
+              <span className="text-center leading-tight">Generate Password</span>
             </button>
             <Link
-              href="/tools/ai-analyzer"
-              className="text-lg font-bold bg-purple-600 text-white px-8 py-4 rounded-xl hover:bg-purple-500 hover:scale-105 transition-all shadow-[0_0_20px_rgba(168,85,247,0.5)] w-full sm:w-auto flex items-center justify-center gap-2"
+              href="/tools/encryption"
+              className="text-sm font-bold bg-emerald-600 text-white py-3 px-3 rounded-xl hover:bg-emerald-500 hover:scale-105 transition-all shadow-[0_0_20px_rgba(16,185,129,0.5)] w-full flex items-center justify-center gap-2 h-full min-h-[56px]"
             >
-              <BrainCircuit className="w-5 h-5" />
-              AI Analyzer
+              <Lock className="w-5 h-5 shrink-0" />
+              <span className="text-center leading-tight">Encryption Studio</span>
+            </Link>
+            <Link
+              href="/tools/ai-analyzer"
+              className="text-sm font-bold bg-purple-600 text-white py-3 px-3 rounded-xl hover:bg-purple-500 hover:scale-105 transition-all shadow-[0_0_20px_rgba(168,85,247,0.5)] w-full flex items-center justify-center gap-2 h-full min-h-[56px]"
+            >
+              <BrainCircuit className="w-5 h-5 shrink-0" />
+              <span className="text-center leading-tight">AI Analyzer</span>
             </Link>
             <Link
               href="/tools/passphrase"
-              className="text-lg font-bold bg-secondary text-foreground px-8 py-4 rounded-xl hover:bg-secondary/80 hover:scale-105 transition-all shadow-sm w-full sm:w-auto flex items-center justify-center gap-2"
+              className="text-sm font-bold bg-secondary text-foreground py-3 px-3 rounded-xl hover:bg-secondary/80 hover:scale-105 transition-all shadow-sm w-full flex items-center justify-center gap-2 h-full min-h-[56px]"
             >
-              <Key className="w-5 h-5" />
-              Passphrase Generator
+              <Key className="w-5 h-5 shrink-0" />
+              <span className="text-center leading-tight">Passphrase Generator</span>
             </Link>
             <Link
               href="/tools/breach-checker"
-              className="text-lg font-bold bg-destructive text-destructive-foreground px-8 py-4 rounded-xl hover:bg-destructive/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(239,68,68,0.5)] w-full sm:w-auto flex items-center justify-center gap-2"
+              className="text-sm font-bold bg-destructive text-destructive-foreground py-3 px-3 rounded-xl hover:bg-destructive/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(239,68,68,0.5)] w-full flex items-center justify-center gap-2 h-full min-h-[56px]"
             >
-              <Database className="w-5 h-5" />
-              Breach Checker
+              <Database className="w-5 h-5 shrink-0" />
+              <span className="text-center leading-tight">Breach Checker</span>
             </Link>
           </div>
         </div>
@@ -78,7 +84,6 @@ export default function Home() {
           {/* Pro Tools */}
           <div className="lg:col-span-6 xl:col-span-7 space-y-8">
             <StrengthAnalyzer />
-            <SecureNotes />
           </div>
         </div>
       </section>
@@ -90,14 +95,18 @@ export default function Home() {
           <p className="text-muted-foreground">Everything you need to stay safe online.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <Link href="/tools/passphrase" className="group p-6 rounded-2xl border border-primary/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
             <Key className="h-10 w-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">Passphrase Generator</h3>
             <p className="text-sm text-muted-foreground">Generate memorable multiple-word passphrases instead of random characters.</p>
           </Link>
 
-
+          <Link href="/tools/encryption" className="group p-6 rounded-2xl border border-emerald-500/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+            <Lock className="h-10 w-10 text-emerald-500 mb-4 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold mb-2">Encryption Studio</h3>
+            <p className="text-sm text-muted-foreground">Encrypt and decrypt sensitive text using 4 different military-grade algorithms.</p>
+          </Link>
 
           <Link href="/tools/ai-analyzer" className="group p-6 rounded-2xl border border-purple-500/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
             <BrainCircuit className="h-10 w-10 text-purple-500 mb-4 group-hover:scale-110 transition-transform" />

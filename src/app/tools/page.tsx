@@ -10,7 +10,7 @@ export default function ToolsPage() {
                 Explore our suite of advanced security tools designed to keep your digital life safe.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Link href="/tools/ai-analyzer" className="p-6 rounded-xl border border-purple-500/20 bg-card hover:bg-secondary/40 transition-colors cursor-pointer block group">
                     <h2 className="text-xl font-semibold mb-2 text-purple-500 group-hover:underline">AI Analyzer</h2>
                     <p className="text-sm text-muted-foreground">Bring your own API key to let Open-Source or Premium AIs analyze password strengths deeply.</p>
@@ -19,6 +19,11 @@ export default function ToolsPage() {
                 <Link href="/tools/passphrase" className="p-6 rounded-xl border border-primary/20 bg-card hover:bg-secondary/40 transition-colors cursor-pointer block group">
                     <h2 className="text-xl font-semibold mb-2 text-primary group-hover:underline">Passphrase Generator</h2>
                     <p className="text-sm text-muted-foreground">Generate memorable but highly secure multi-word passphrases.</p>
+                </Link>
+
+                <Link href="/tools/encryption" className="p-6 rounded-xl border border-emerald-500/20 bg-card hover:bg-secondary/40 transition-colors cursor-pointer block group">
+                    <h2 className="text-xl font-semibold mb-2 text-emerald-500 group-hover:underline">Encryption Studio</h2>
+                    <p className="text-sm text-muted-foreground">Encrypt and decrypt sensitive text using 4 different military-grade algorithms.</p>
                 </Link>
 
                 <Link href="/tools/breach-checker" className="p-6 rounded-xl border border-destructive/20 bg-card hover:bg-secondary/40 transition-colors cursor-pointer block group">
