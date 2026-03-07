@@ -5,7 +5,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const Header = () => {
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
             <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
                 <div className="flex items-center gap-6">
                     <Link href="/" className="flex items-center space-x-2">

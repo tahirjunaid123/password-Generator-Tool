@@ -96,25 +96,25 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Link href="/tools/passphrase" className="group p-6 rounded-2xl border border-primary/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-            <Key className="h-10 w-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
+          <Link href="/tools/passphrase" className="group p-6 rounded-2xl border border-blue-500/20 bg-card/80 backdrop-blur-md hover:bg-secondary/60 transition-all hover:-translate-y-1 dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <Key className="h-10 w-10 text-blue-500 mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">Passphrase Generator</h3>
             <p className="text-sm text-muted-foreground">Generate memorable multiple-word passphrases instead of random characters.</p>
           </Link>
 
-          <Link href="/tools/encryption" className="group p-6 rounded-2xl border border-emerald-500/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+          <Link href="/tools/encryption" className="group p-6 rounded-2xl border border-emerald-500/20 bg-card/80 backdrop-blur-md hover:bg-secondary/60 transition-all hover:-translate-y-1 dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <Lock className="h-10 w-10 text-emerald-500 mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">Encryption Studio</h3>
             <p className="text-sm text-muted-foreground">Encrypt and decrypt sensitive text using 4 different military-grade algorithms.</p>
           </Link>
 
-          <Link href="/tools/ai-analyzer" className="group p-6 rounded-2xl border border-purple-500/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+          <Link href="/tools/ai-analyzer" className="group p-6 rounded-2xl border border-purple-500/20 bg-card/80 backdrop-blur-md hover:bg-secondary/60 transition-all hover:-translate-y-1 dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <BrainCircuit className="h-10 w-10 text-purple-500 mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">AI Analyzer</h3>
             <p className="text-sm text-muted-foreground">Bring your own API key to let OpenAI analyze password strengths deeply.</p>
           </Link>
 
-          <Link href="/tools/breach-checker" className="group p-6 rounded-2xl border border-destructive/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+          <Link href="/tools/breach-checker" className="group p-6 rounded-2xl border border-destructive/20 bg-card/80 backdrop-blur-md hover:bg-secondary/60 transition-all hover:-translate-y-1 dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <Database className="h-10 w-10 text-destructive mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">Breach Checker</h3>
             <p className="text-sm text-muted-foreground">Cross-reference your email against the latest database breaches to ensure safety.</p>
@@ -131,7 +131,7 @@ export default function Home() {
 
         <div className="flex flex-wrap justify-center gap-6">
           {/* Review 1 */}
-          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="United States">
               <Image src="https://flagcdn.com/w40/us.png" alt="USA Flag" width={24} height={18} className="block object-contain" />
             </div>
@@ -154,7 +154,7 @@ export default function Home() {
           </div>
 
           {/* Review 2 */}
-          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="Germany">
               <Image src="https://flagcdn.com/w40/de.png" alt="Germany Flag" width={24} height={18} className="block object-contain" />
             </div>
@@ -177,7 +177,7 @@ export default function Home() {
           </div>
 
           {/* Review 3 */}
-          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="Canada">
               <Image src="https://flagcdn.com/w40/ca.png" alt="Canada Flag" width={24} height={18} className="block object-contain" />
             </div>
@@ -200,7 +200,7 @@ export default function Home() {
           </div>
 
           {/* Review 4 */}
-          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="United Kingdom">
               <Image src="https://flagcdn.com/w40/gb.png" alt="UK Flag" width={24} height={18} className="block object-contain" />
             </div>
@@ -223,7 +223,7 @@ export default function Home() {
           </div>
 
           {/* Review 5 - Warda Amjad */}
-          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
+          <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] min-w-[300px] flex-grow md:flex-grow-0 bg-card/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative hover:-translate-y-1 transition-transform group">
             <div className="absolute top-4 right-4 overflow-hidden rounded-sm border border-border/50 shadow-sm" title="Pakistan">
               <Image src="https://flagcdn.com/w40/pk.png" alt="Pakistan Flag" width={24} height={18} className="block object-contain" />
             </div>

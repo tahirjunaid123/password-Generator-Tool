@@ -53,7 +53,7 @@ export const PassphraseGenerator = () => {
     }
 
     return (
-        <div className="w-full max-w-2xl mx-auto p-8 rounded-2xl bg-card border border-border/50 shadow-2xl relative overflow-hidden">
+        <div className="w-full max-w-2xl mx-auto p-8 rounded-2xl bg-card/80 backdrop-blur-3xl border border-border/50 shadow-2xl relative overflow-hidden">
             {/* Decorative Blur */}
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 rounded-full bg-primary/20 blur-3xl"></div>
 

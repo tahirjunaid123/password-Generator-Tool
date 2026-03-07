@@ -430,7 +430,7 @@ Provide your JSON threat assessment for this exact email.`;
                 })}
             </div>
 
-            <div className="bg-card p-6 md:p-8 rounded-3xl border border-border shadow-2xl space-y-6 relative overflow-hidden transition-all duration-700 hover:border-border/80 group">
+            <div className="bg-card/80 backdrop-blur-3xl p-6 md:p-8 rounded-3xl border border-border shadow-2xl space-y-6 relative overflow-hidden transition-all duration-700 hover:border-border/80 group">
                 {/* Background dynamic glow */}
                 <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/3 transition-colors duration-1000 ${glowColorMap[activeProvider]} opacity-40 group-hover:opacity-60`}></div>
                 <div className={`absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[80px] -z-10 -translate-x-1/3 translate-y-1/3 transition-colors duration-1000 ${glowColorMap[activeProvider]} opacity-30 group-hover:opacity-50`}></div>
@@ -546,7 +546,7 @@ Provide your JSON threat assessment for this exact email.`;
                         Threat Intelligence Report
                     </h3>
 
-                    <div className="bg-card border border-border/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div className="bg-card/90 backdrop-blur-2xl border border-border/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                         <div className="p-4 md:p-6 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-secondary/20">
                             <div className="font-mono text-lg font-bold flex items-center gap-2 break-all">
                                 <Globe className="w-5 h-5 text-muted-foreground shrink-0" />
