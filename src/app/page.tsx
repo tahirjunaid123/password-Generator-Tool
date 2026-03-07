@@ -3,7 +3,7 @@
 import { PasswordGenerator } from "@/components/features/PasswordGenerator";
 import { StrengthAnalyzer } from "@/components/features/StrengthAnalyzer";
 import { SecureNotes } from "@/components/features/SecureNotes";
-import { Shield, Key, Fingerprint, Database } from "lucide-react";
+import { Shield, Key, Fingerprint, Database, BrainCircuit } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -21,21 +21,43 @@ export default function Home() {
       <section className="w-full flex flex-col items-center text-center pt-24 pb-16 px-4">
         <div className="max-w-4xl space-y-6">
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter">
-            Generate Secure Passwords <br className="hidden md:block" />
+            AI-Powered Password & <br className="hidden md:block" />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-blue-500 drop-shadow-[0_0_20px_rgba(255,0,255,0.4)]">
-              Instantly
+              Security Suite
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium">
-            Military-grade encryption, AI analysis, and complete privacy.
+            Create strong passwords, analyze their strength, detect breaches, generate passphrases, and encrypt your data.
           </p>
-          <div className="pt-8">
+          <div className="pt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
             <button
               onClick={scrollToGenerator}
-              className="text-lg font-bold bg-primary text-primary-foreground px-8 py-4 rounded-xl hover:bg-primary/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,0,255,0.5)]"
+              className="text-lg font-bold bg-primary text-primary-foreground px-8 py-4 rounded-xl hover:bg-primary/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,0,255,0.5)] w-full sm:w-auto flex items-center justify-center gap-2"
             >
+              <Shield className="w-5 h-5" />
               Generate Password
             </button>
+            <Link
+              href="/tools/ai-analyzer"
+              className="text-lg font-bold bg-purple-600 text-white px-8 py-4 rounded-xl hover:bg-purple-500 hover:scale-105 transition-all shadow-[0_0_20px_rgba(168,85,247,0.5)] w-full sm:w-auto flex items-center justify-center gap-2"
+            >
+              <BrainCircuit className="w-5 h-5" />
+              AI Analyzer
+            </Link>
+            <Link
+              href="/tools/passphrase"
+              className="text-lg font-bold bg-secondary text-foreground px-8 py-4 rounded-xl hover:bg-secondary/80 hover:scale-105 transition-all shadow-sm w-full sm:w-auto flex items-center justify-center gap-2"
+            >
+              <Key className="w-5 h-5" />
+              Passphrase Generator
+            </Link>
+            <Link
+              href="/tools/breach-checker"
+              className="text-lg font-bold bg-destructive text-destructive-foreground px-8 py-4 rounded-xl hover:bg-destructive/90 hover:scale-105 transition-all shadow-[0_0_20px_rgba(239,68,68,0.5)] w-full sm:w-auto flex items-center justify-center gap-2"
+            >
+              <Database className="w-5 h-5" />
+              Breach Checker
+            </Link>
           </div>
         </div>
       </section>
@@ -68,20 +90,22 @@ export default function Home() {
           <p className="text-muted-foreground">Everything you need to stay safe online.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Link href="/tools/passphrase" className="group p-6 rounded-2xl border border-primary/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
             <Key className="h-10 w-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">Passphrase Generator</h3>
             <p className="text-sm text-muted-foreground">Generate memorable multiple-word passphrases instead of random characters.</p>
           </Link>
 
-          <Link href="/tools/pattern-checker" className="group p-6 rounded-2xl border border-blue-500/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-            <Fingerprint className="h-10 w-10 text-blue-400 mb-4 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold mb-2">Pattern Checker</h3>
-            <p className="text-sm text-muted-foreground">Analyze and prevent easily guessable keyboard patterns and sequential numbers.</p>
+
+
+          <Link href="/tools/ai-analyzer" className="group p-6 rounded-2xl border border-purple-500/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+            <BrainCircuit className="h-10 w-10 text-purple-500 mb-4 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold mb-2">AI Analyzer</h3>
+            <p className="text-sm text-muted-foreground">Bring your own API key to let OpenAI analyze password strengths deeply.</p>
           </Link>
 
-          <Link href="/tools" className="group p-6 rounded-2xl border border-destructive/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+          <Link href="/tools/breach-checker" className="group p-6 rounded-2xl border border-destructive/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
             <Database className="h-10 w-10 text-destructive mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">Breach Checker</h3>
             <p className="text-sm text-muted-foreground">Cross-reference your email against the latest database breaches to ensure safety.</p>
