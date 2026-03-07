@@ -34,7 +34,7 @@ export default function AIAnalyzerPage() {
                     <h2 className="text-3xl font-extrabold mb-8 text-foreground tracking-tight text-center md:text-left">
                         How AI <span className="text-purple-500">Revolutionizes</span> Password Security
                     </h2>
-                    <div className="bg-card p-8 md:p-10 rounded-3xl border border-purple-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] space-y-10 relative overflow-hidden">
+                    <div className="bg-card p-8 md:p-10 rounded-3xl border border-purple-500/20 dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] shadow-[0_8px_30px_rgba(0,0,0,0.05)] space-y-10 relative overflow-hidden">
                         {/* Background glow decoration */}
                         <div className="absolute top-0 right-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl -z-10 translate-x-1/3 -translate-y-1/3"></div>
                         <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl -z-10 -translate-x-1/3 translate-y-1/3"></div>

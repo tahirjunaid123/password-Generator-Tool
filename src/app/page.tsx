@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="relative flex flex-col items-center justify-start overflow-x-hidden selection:bg-primary/30 selection:text-primary">
       {/* Background neon grid effect */}
-      <div className="fixed inset-0 -z-10 h-full w-full bg-background [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#ff00ff22_100%)]"></div>
+      <div className="fixed inset-0 -z-10 h-full w-full bg-background dark:[background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#ff00ff22_100%)] [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#ff00ff11_100%)]"></div>
 
       {/* HERO SECTION */}
       <section className="w-full flex flex-col items-center text-center pt-24 pb-16 px-4">
@@ -96,7 +96,7 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Link href="/tools/passphrase" className="group p-6 rounded-2xl border border-primary/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+          <Link href="/tools/passphrase" className="group p-6 rounded-2xl border border-primary/20 bg-card hover:bg-secondary/40 transition-all hover:-translate-y-1 dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <Key className="h-10 w-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-2">Passphrase Generator</h3>
             <p className="text-sm text-muted-foreground">Generate memorable multiple-word passphrases instead of random characters.</p>

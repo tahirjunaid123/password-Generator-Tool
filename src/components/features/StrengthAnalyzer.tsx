@@ -24,7 +24,7 @@ export const StrengthAnalyzer = () => {
     const isStrong = analysis.score > 70;
 
     return (
-        <Card className="w-full max-w-lg mx-auto border-secondary shadow-[0_0_20px_rgba(0,0,0,0.5)] bg-background/90 backdrop-blur-md">
+        <Card className="w-full max-w-lg mx-auto border-secondary dark:shadow-[0_0_20px_rgba(0,0,0,0.5)] shadow-[0_0_20px_rgba(0,0,0,0.1)] bg-background/90 backdrop-blur-md">
             <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                     {isStrong ? (

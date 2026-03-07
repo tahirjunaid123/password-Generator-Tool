@@ -35,7 +35,7 @@ export const PasswordGenerator = () => {
     };
 
     return (
-        <Card className="w-full max-w-lg mx-auto border-primary/30 shadow-[0_0_30px_rgba(255,0,255,0.15)] bg-background/80 backdrop-blur-xl">
+        <Card className="w-full max-w-lg mx-auto border-primary/30 dark:shadow-[0_0_30px_rgba(255,0,255,0.15)] shadow-[0_0_30px_rgba(255,0,255,0.05)] bg-background/80 backdrop-blur-xl">
             <CardHeader>
                 <CardTitle className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">
                     Secure Password Generator
@@ -76,8 +76,8 @@ export const PasswordGenerator = () => {
                     <div className="flex justify-between items-center text-sm font-medium">
                         <span className="text-muted-foreground">Strength</span>
                         <span className={`px-2 py-0.5 rounded-full text-xs font-bold text-black ${strength === "Strong" ? "bg-green-400" :
-                                strength === "Good" ? "bg-yellow-400" :
-                                    strength === "Fair" ? "bg-orange-400" : "bg-red-400"
+                            strength === "Good" ? "bg-yellow-400" :
+                                strength === "Fair" ? "bg-orange-400" : "bg-red-400"
                             }`}>
                             {strength.toUpperCase()}
                         </span>

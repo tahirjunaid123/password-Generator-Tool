@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Shield } from "lucide-react"; // Fallback if image fails
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const Header = () => {
     return (
@@ -25,6 +26,7 @@ export const Header = () => {
                     </nav>
                 </div>
                 <div className="flex items-center justify-end space-x-4">
+                    <ThemeToggle />
                     <Link href="/login" className="text-sm font-medium transition-colors hover:text-primary hidden md:inline-flex">
                         Login
                     </Link>

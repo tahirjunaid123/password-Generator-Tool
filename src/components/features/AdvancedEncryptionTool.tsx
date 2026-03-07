@@ -173,7 +173,7 @@ export function AdvancedEncryptionTool() {
             </div>
 
             {/* Main Interactive Card */}
-            <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-3xl p-6 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative overflow-hidden group">
+            <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-3xl p-6 md:p-10 dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] shadow-[0_8px_30px_rgba(0,0,0,0.05)] relative overflow-hidden group">
                 {/* Background Glow Effect */}
                 <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
