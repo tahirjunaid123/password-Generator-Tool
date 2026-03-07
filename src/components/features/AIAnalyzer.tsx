@@ -7,8 +7,10 @@ type AIResult = {
   password: string;
   score: number;
   strength: "Weak" | "Medium" | "Strong" | "Ultra Strong";
+  summary: string;
   warnings: string[];
   suggestions: string[];
+  bulkAlternatives: string[];
 };
 
 type Provider = "openai" | "gemini" | "huggingface";
@@ -105,8 +107,10 @@ For each password, provide:
 1. "password" (the exact string provided)
 2. "score" (integer 0-100 indicating strength)
 3. "strength" (string: exactly one of "Weak", "Medium", "Strong", or "Ultra Strong")
-4. "warnings" (array of strings, e.g., patterns detected, common words, sequential characters)
-5. "suggestions" (array of strings, actionable advice to fix the weaknesses)
+4. "summary" (A humanized, conversational 2-3 sentence explanation acting as a cybersecurity expert explaining why the password is good or bad and how it could be exploited.)
+5. "warnings" (array of strings, e.g., patterns detected, common words, sequential characters)
+6. "suggestions" (array of strings, actionable advice to fix the weaknesses)
+7. "bulkAlternatives" (array of 5 generated highly-secure, completely different bulk alternative passwords that the user could use instead)
 
 Return ONLY JSON in this exact format:
 {
@@ -115,8 +119,10 @@ Return ONLY JSON in this exact format:
       "password": "...",
       "score": 0,
       "strength": "...",
+      "summary": "...",
       "warnings": ["..."],
-      "suggestions": ["..."]
+      "suggestions": ["..."],
+      "bulkAlternatives": ["...", "...", "...", "...", "..."]
     }
   ]
 }`;
@@ -147,7 +153,10 @@ Return ONLY JSON in this exact format:
       }),
     });
 
-    if (!response.ok) throw new Error(response.status === 401 ? "Invalid API Key or unauthorized." : `API Error: ${response.status}`);
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData?.error?.message || (response.status === 401 ? "Invalid API Key or unauthorized." : `API Error: ${response.status}`));
+    }
     const data = await response.json();
     return cleanJsonResponse(data.choices[0].message.content.trim());
   };
@@ -172,7 +181,10 @@ Return ONLY JSON in this exact format:
       }),
     });
 
-    if (!response.ok) throw new Error(response.status === 400 ? "Invalid API Key or Bad Request." : `API Error: ${response.status}`);
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData?.error?.message || (response.status === 400 ? "Invalid API Key or Bad Request." : `API Error: ${response.status}`));
+    }
     const data = await response.json();
 
     if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
@@ -202,7 +214,9 @@ Return ONLY JSON in this exact format:
     });
 
     if (!response.ok) {
-      if (response.status === 401) throw new Error("Invalid HF Token");
+      const errData = await response.json().catch(() => ({}));
+      if (errData?.error) throw new Error(`Hugging Face Error: ${errData.error}`);
+      if (response.status === 401) throw new Error("Invalid Hugging Face Token");
       if (response.status === 503) throw new Error("Model is currently loading. Please try again in a few seconds.");
       throw new Error(`API Error: ${response.status}`);
     }
@@ -425,6 +439,19 @@ Return ONLY JSON in this exact format:
                 </div>
 
                 <div className="p-4 md:p-6 space-y-6">
+                  {/* Humanized AI Summary */}
+                  {res.summary && (
+                    <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 flex gap-4 items-start">
+                      <div className="bg-primary/20 p-2 rounded-full mt-1 shrink-0">
+                        <Sparkles className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">AI Analysis</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{res.summary}</p>
+                      </div>
+                    </div>
+                  )}
+
                   <div>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium text-muted-foreground">AI Output Score</span>
@@ -471,6 +498,28 @@ Return ONLY JSON in this exact format:
                       </div>
                     )}
                   </div>
+
+                  {/* Bulk Password Alternatives */}
+                  {res.bulkAlternatives && res.bulkAlternatives.length > 0 && (
+                    <div className="mt-6 pt-6 border-t border-border/50">
+                      <h4 className="text-sm font-bold flex items-center gap-2 text-primary mb-4">
+                        <KeyRound className="w-4 h-4" /> Strong Bulk Alternatives
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {res.bulkAlternatives.map((alt, aIdx) => (
+                          <div key={aIdx} className="flex items-center justify-between bg-secondary/30 border border-border/40 rounded-lg p-3 hover:bg-secondary/50 transition-colors group/alt">
+                            <span className="font-mono text-sm break-all">{alt}</span>
+                            <button
+                              onClick={() => navigator.clipboard.writeText(alt)}
+                              className="text-xs font-semibold px-2 py-1 rounded bg-background border border-border/50 opacity-0 group-hover/alt:opacity-100 transition-opacity whitespace-nowrap"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -5,12 +5,14 @@ import { AlertTriangle, CheckCircle2, ChevronRight, Loader2, ShieldAlert, KeyRou
 
 type BreachResult = {
     breachProbability: "Safe" | "Low" | "Medium" | "High" | "Critical";
-    breachCount?: number; // Only for passwords
+    breachCount?: number; // For passwords and emails
+    emailBreaches?: { name: string; date: string }[];
     targetInput: string;
     targetType: "Password" | "Email/Domain";
+    summary: string;
     riskFactors: string[];
     recommendations: string[];
-    knownIncidents?: string[]; // Used for Email/Domain
+    knownIncidents?: string[];
 };
 
 type Provider = "openai" | "gemini" | "huggingface";
@@ -106,30 +108,35 @@ Your goal is to assess its exposure risk and provide recommendations.
 DO NOT use Markdown blocks. Return ONLY valid JSON in this exact structure:
 {
   "breachProbability": "Safe" | "Low" | "Medium" | "High" | "Critical",
+  "summary": "A humanized, conversational 2-3 sentence explanation acting as an expert explaining the risk.",
+  "knownIncidents": ["Detailed explanation of a genuine historical incident where a similar vulnerability was exploited"],
   "riskFactors": ["risk 1", "risk 2"],
-  "recommendations": ["recommendation 1"]
+  "recommendations": ["actionable suggestion 1", "actionable suggestion 2"]
 }`;
     };
 
     const getEmailSystemPrompt = () => {
-        return `You are a Cybersecurity Threat Intelligence source. The user will provide an email address or domain.
-Your goal is to assess its exposure in known historical data breaches and potential risk factors.
+        return `You are a Cybersecurity Threat Intelligence source. The user will provide an email address, the number of database breaches it appeared in, and a list of specific company breaches it was part of.
+Your goal is to assess its exposure risk based on this GENUINE data and provide recommendations.
 DO NOT use Markdown blocks. Return ONLY valid JSON in this exact structure:
 {
   "breachProbability": "Safe" | "Low" | "Medium" | "High" | "Critical",
-  "knownIncidents": ["incident 1", "incident 2"],
+  "summary": "A humanized, conversational 2-3 sentence explanation acting as an expert explaining the risk of these specific breaches.",
   "riskFactors": ["risk 1", "risk 2"],
-  "recommendations": ["recommendation 1"]
+  "recommendations": ["actionable suggestion 1", "actionable suggestion 2"]
 }`;
     };
 
-    const getUserPrompt = (targetString: string, breachCount?: number) => {
+    const getUserPrompt = (targetString: string, breachCount?: number, emailBreachDetails?: any[]) => {
         if (targetType === "Password") {
             return `Password Length: ${targetString.length} characters.
 Breach Count: ${breachCount} times found in database.
 Provide your JSON threat assessment.`;
         } else {
-            return `Analyze this target for historical data exposure and threats: ${targetString}`;
+            return `Email Address: ${targetString}
+Breach Count: ${breachCount} times found in known databases.
+Specific Breaches: ${emailBreachDetails ? JSON.stringify(emailBreachDetails) : "None"}
+Provide your JSON threat assessment for this exact email.`;
         }
     };
 
@@ -249,6 +256,7 @@ Provide your JSON threat assessment.`;
             setIsAnalyzing(true);
 
             let breachCountVal = 0;
+            let emailBreachesVal: { name: string; date: string }[] = [];
             let promptInfo = { system: "", user: "" };
 
             // Passwords use HIBP + Hash setup
@@ -275,11 +283,20 @@ Provide your JSON threat assessment.`;
                     user: getUserPrompt(target, breachCountVal)
                 };
             }
-            // Emails & Domains go straight to AI
+            // Emails use the secure Next.js API Proxy to avoid CORS errors
             else {
+                const leakRes = await fetch(`/api/leakcheck?email=${encodeURIComponent(target)}`);
+                if (!leakRes.ok) throw new Error("Failed to contact secure email breach proxy.");
+                const leakData = await leakRes.json();
+
+                if (leakData && leakData.success && leakData.found > 0 && Array.isArray(leakData.sources)) {
+                    breachCountVal = leakData.found;
+                    emailBreachesVal = leakData.sources.map((s: any) => ({ name: s.name, date: s.date }));
+                }
+
                 promptInfo = {
                     system: getEmailSystemPrompt(),
-                    user: getUserPrompt(target)
+                    user: getUserPrompt(target, breachCountVal, emailBreachesVal)
                 };
             }
 
@@ -305,15 +322,16 @@ Provide your JSON threat assessment.`;
 
             const parsed = JSON.parse(cleanJson);
 
-            if (!parsed.breachProbability || !Array.isArray(parsed.riskFactors)) {
-                throw new Error("Invalid AI Response format.");
+            if (!parsed.breachProbability || !Array.isArray(parsed.riskFactors) || !parsed.summary) {
+                throw new Error("Invalid AI Response format. Missing required summary or risk factors.");
             }
 
             setResult({
                 ...parsed,
                 targetInput: target,
                 targetType,
-                ...(targetType === "Password" ? { breachCount: breachCountVal } : {})
+                breachCount: breachCountVal,
+                ...(targetType === "Email/Domain" ? { emailBreaches: emailBreachesVal } : {})
             });
 
         } catch (err: any) {
@@ -441,19 +459,19 @@ Provide your JSON threat assessment.`;
                         <>
                             <label className="block text-sm font-medium text-foreground flex items-center gap-2">
                                 <Mail className="w-4 h-4 text-primary" />
-                                Email Address, Domain, or User
+                                Email Address
                             </label>
                             <input
                                 type="text"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
-                                placeholder="e.g., test@gmail.com, example.com, admin..."
+                                placeholder="e.g., test@gmail.com..."
                                 className={`w-full bg-background border border-border/50 rounded-xl px-4 py-3 placeholder:text-muted-foreground focus:outline-none focus:ring-2 ${borderFocusMap[activeProvider]} text-foreground font-mono transition-shadow`}
                                 disabled={isAnalyzing}
                             />
-                            <p className="text-xs text-muted-foreground mt-2 flex items-center gap-2">
-                                <Database className="w-3 h-3 text-blue-500 shrink-0" />
-                                Queries selected AI LLM to reference data dumps based on historical breaches for exact contextual assessment.
+                            <p className="text-xs text-muted-foreground mt-2 flex items-center gap-2 leading-relaxed">
+                                <Database className="w-4 h-4 text-blue-500 shrink-0" />
+                                Queries live, authentic data breach databases to find exactly how many times this email was compromised, then uses AI to provide expert remediation advice.
                             </p>
                         </>
                     )}
@@ -530,8 +548,23 @@ Provide your JSON threat assessment.`;
                         </div>
 
                         <div className="p-4 md:p-8 space-y-8">
-                            {/* Specifics for Passwords (HIBP Context) vs Domains (AI Historical Intel) */}
-                            {result.targetType === "Password" ? (
+                            {/* Humanized AI Summary */}
+                            {result.summary && (
+                                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5 flex gap-4 items-start">
+                                    <div className="bg-primary/20 p-2.5 rounded-full mt-0.5 shrink-0 shadow-sm border border-primary/30">
+                                        <AlertTriangle className="w-5 h-5 text-primary" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-base font-bold text-foreground mb-1.5 flex items-center gap-2">
+                                            Expert Analysis
+                                        </h4>
+                                        <p className="text-sm text-muted-foreground leading-relaxed">{result.summary}</p>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Specifics for Passwords (HIBP Context) */}
+                            {result.targetType === "Password" && (
                                 <div className="space-y-4">
                                     <h4 className={`text-lg font-bold flex items-center gap-2 ${result.breachCount! > 0 ? 'text-destructive' : 'text-green-500'}`}>
                                         {result.breachCount! > 0 ? <AlertTriangle className="w-5 h-5" /> : <CheckCircle2 className="w-5 h-5" />}
@@ -545,22 +578,32 @@ Provide your JSON threat assessment.`;
                                         )}
                                     </div>
                                 </div>
-                            ) : (
+                            )}
+
+                            {/* Specifics for Emails (LeakCheck Context) */}
+                            {result.targetType === "Email/Domain" && (
                                 <div className="space-y-4">
-                                    <h4 className="text-lg font-bold flex items-center gap-2 text-destructive">
-                                        <AlertTriangle className="w-5 h-5" /> Known Historical Incidents
+                                    <h4 className={`text-lg font-bold flex items-center gap-2 ${result.breachCount! > 0 ? 'text-destructive' : 'text-green-500'}`}>
+                                        {result.breachCount! > 0 ? <AlertTriangle className="w-5 h-5" /> : <CheckCircle2 className="w-5 h-5" />}
+                                        Live Email Breach Database
                                     </h4>
-                                    {result.knownIncidents && result.knownIncidents.length > 0 && result.knownIncidents[0] !== "None" ? (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            {result.knownIncidents.map((inc, i) => (
-                                                <div key={i} className="bg-destructive/10 border border-destructive/20 rounded-xl p-4 text-sm font-medium">
-                                                    {inc}
+
+                                    <div className={`${result.breachCount! > 0 ? 'bg-destructive/10 border-destructive/20 text-destructive' : 'bg-green-500/10 border-green-500/20 text-green-500'} border rounded-xl p-4 text-[15px] font-medium`}>
+                                        {result.breachCount! > 0 ? (
+                                            <>This email address was found in <strong className="text-xl mx-1">{result.breachCount!.toLocaleString()}</strong> known data breaches.</>
+                                        ) : (
+                                            <>Excellent! This email address was not found in any known public data breaches.</>
+                                        )}
+                                    </div>
+
+                                    {result.emailBreaches && result.emailBreaches.length > 0 && (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+                                            {result.emailBreaches.map((breach, i) => (
+                                                <div key={i} className="flex justify-between items-center bg-secondary/30 border border-border/50 rounded-lg p-3">
+                                                    <span className="font-bold text-sm truncate" title={breach.name}>{breach.name}</span>
+                                                    <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">{breach.date || "Unknown"}</span>
                                                 </div>
                                             ))}
-                                        </div>
-                                    ) : (
-                                        <div className="bg-green-500/10 border border-green-500/20 text-green-500 rounded-xl p-4 text-sm font-medium flex items-center gap-2">
-                                            <CheckCircle2 className="w-4 h-4" /> No major historical incidents detected by AI model.
                                         </div>
                                     )}
                                 </div>
