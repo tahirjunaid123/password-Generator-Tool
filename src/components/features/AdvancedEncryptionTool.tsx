@@ -164,8 +164,8 @@ export function AdvancedEncryptionTool() {
                         <Unlock className="w-8 h-8 text-emerald-500" />
                     )}
                 </div>
-                <h2 className="text-4xl font-extrabold tracking-tight">
-                    Advanced <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Encryption Studio</span>
+                <h2 className="text-4xl font-extrabold tracking-tight text-foreground">
+                    Advanced <span className="text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-primary dark:to-blue-500">Encryption Studio</span>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                     Military-grade client-side processing using industry-leading cryptographic algorithms. Your data never leaves your browser.
